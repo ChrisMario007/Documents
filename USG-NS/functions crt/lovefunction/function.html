@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binary Converter</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        #binaryForm {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4595a0;
+        }
+
+        #outputBinary {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eee;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Word to Binary Converter</h2>
+
+    <form id="binaryForm">
+        <label for="inputWords">Enter words:</label>
+        <input type="text" id="inputWords" name="inputWords" required>
+        <button type="button" onclick="convertToBinary()">Convert</button>
+    </form>
+
+    <div id="outputBinary"></div>
+    <script>
+        // Function to convert input words to binary
+        function convertToBinary() {
+            //Get the value entered in the input field with the ID "inputWords"
+            var inputWords = document.getElementById('inputWords').value;
+            
+            // Initialize an empty string to store the binary representation
+            var binaryResult = '';d
+    
+            // Loop through each character in the inputWords string
+            for (var i = 0; i < inputWords.length; i++) {
+                // Get the Unicode code of the current character and convert it to binary
+                var charBinary = inputWords[i].charCodeAt(0).toString(2);
+    
+                // Append the binary representation of the current character to the result string, followed by a space
+                binaryResult += charBinary + ' ';
+            }
+    
+            // Update the content of the HTML element with the ID "outputBinary"
+            document.getElementById('outputBinary').innerHTML = '<strong>Binary Representation:</strong> ' + binaryResult;
+        }
+    </script>
+    
+</body>
+</html>

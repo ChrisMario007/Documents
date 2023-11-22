@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Configuration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <h2>API Configuration Form</h2>
+    </div>
+    <div class="main-container">
+        <div class="form-container">
+            <form class="api-config-form">
+                <label for="clientName">Client Name:</label>
+                <input type="text" name="clientName" required>
+
+                <label for="apiName">API Name:</label>
+                <input type="text" name="apiName" required>
+
+                <label for="apiEndpoint">API Endpoint:</label>
+                <input type="text" name="apiEndpoint" required>
+
+                <label for="apiType">Type of API:</label>
+                <select name="apiType" required>
+                    <option value="red">RESTful</option>
+                    <option value="blue">SOAP</option>
+                </select>
+
+                <label for="methodType">Type of Method:</label>
+                <select name="methodType" required>
+                    <option value="red">Post</option>
+                    <option value="blue">Put</option>
+                    <option value="green">Get</option>
+                </select>
+
+                <label for="transactionType">Transaction Type:</label>
+                <select name="transactionType" required>
+                    <option value="red">Non-Transactional</option>
+                    <option value="blue">Transactional</option>
+                </select>
+
+                <label for="entryType">Entry Type:</label>
+                <select name="entryType" required>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+
+                <label for="glToCredit">GL to Credit:</label>
+                <input type="text" name="glToCredit" required>
+
+                <label for="glToDebit">GL to Debit:</label>
+                <input type="text" name="glToDebit" required>
+
+                <label for="thirdPartyType">Type of Third Party API:</label>
+                <select name="thirdPartyType" required>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+
+                <label for="authType">Auth Type:</label>
+                <select name="authType" required>
+                    <option value="red">Red</option>
+                    <option value="blue">Blue</option>
+                    <option value="green">Green</option>
+                </select>
+
+                <label for="authBody">Auth Body:</label>
+                <input type="text" name="authBody" required>
+
+                <label for="requestBody">Request Body:</label>
+                <textarea name="requestBody" rows="4" required></textarea>
+
+                <button type="submit">Generate</button>
+            </form>
+            <div class="success-message hidden">Form submitted successfully!</div>
+        </div>
+        <div class="side-container">
+            <h3>Details of Third Party API</h3>
+            <hr> 
+            <div class="API-details">
+                <div>Third party = <span class="third-party-value"></span>;</div>
+                <div>API Name = <span class="api-name-value"></span>;</div>
+                <div>API Endpoint = <span class="api-endpoint-value"></span>;</div>
+                <div>Type of API = <span class="api-type-value"></span>;</div>
+                <div>Type of Method = <span class="method-type-value"></span>;</div>
+                <div>Transaction Type = <span class="transaction-type-value"></span>;</div>
+                <div>Entry Type = <span class="entry-type-value"></span>;</div>
+                <div>GL to Credit = <span class="gl-to-credit-value"></span>;</div>
+                <div>GL to Debit = <span class="gl-to-debit-value"></span>;</div>
+                <div>Type of Third Party API = <span class="third-party-api-type-value"></span>;</div>
+                <div>Auth Type = <span class="auth-type-value"></span>;</div>
+                <div>Auth Body = <span class="auth-body-value"></span>;</div>
+                <!-- <div>Request Body = <span class="request-body-value"></span>;</div> -->
+                <div>Request Body = <pre class="request-body-value"></pre></div>
+            </div>
+                    
+            <hr> 
+            <!-- Buttons inside side-container -->
+            <div class="buttons-container">
+                <button class="test-here-button">Test Here</button>
+                <button class="test-postman-button">Test On Postman</button>
+            </div>
+            
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
