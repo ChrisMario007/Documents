@@ -159,6 +159,7 @@ body {
   /* Enable vertical scrolling when content overflows */
   position: relative;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  border: solid 5px #3498db;
 }
 
 .file-modal .close {

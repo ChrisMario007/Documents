@@ -1,98 +1,148 @@
-// server.js
-
 const express = require("express");
-const http = require("http");
-const socketIo = require("socket.io");
 const fs = require("fs");
-const path = require("path");
-const cors = require("cors");
-
 const app = express();
-const server = http.createServer(app);
-const io = socketIo(server, {
-    cors: {
-        origin: "http://localhost:3000", // Update this to match your React app's origin
-        methods: ["GET", "POST"],
-    },
-});
-const port = 3001;
+const chokidar = require("chokidar");
+const cors = require("cors");
+const path = require("path");
 
-// Enable CORS for all routes
+app.use(express.json());
 app.use(cors());
 
-const folderPath = "/Users/crismario/Desktop/untitled folder";
-const filesData = [];
+const port = 3001;
 
-const sendUpdatedFilesData = () => {
-    io.emit("updateFiles", filesData.map(file => ({ ...file, isGenerated: true })));
-};
+const sourceFolder = "/Users/crismario/Desktop/untitled folder";
+const destinationFolder = "/Users/crismario/Desktop/receiver";
 
-// Watcher setup
-const chokidar = require("chokidar");
-const watcher = chokidar.watch(folderPath);
+let fileChanges = [];
+let idCounter = 1;
 
-// Watch for file additions
-watcher.on("add", (filePath) => {
-    console.log(`File added: ${filePath}`);
+// Flag to track if the file was consumed
+let fileConsumed = false;
 
-    const fileName = path.basename(filePath);
-    const stats = fs.statSync(filePath);
-
-    const existingFile = filesData.find((file) => file.name === fileName);
-
-    if (!existingFile) {
-        filesData.push({
-            name: fileName,
-            size: stats.size,
-            lastModified: stats.mtime,
-            isDeleted: false,
-            isGenerated: true, // Add this property
-        });
-
-        sendUpdatedFilesData();
-    }
+const watcher = chokidar.watch(sourceFolder, {
+    ignored: /^\./,
+    persistent: true,
 });
 
-// Watch for file deletions
-watcher.on("unlink", (filePath) => {
-    console.log(`File deleted: ${filePath}`);
+watcher
+    .on("add", (filePath) => {
+        console.log(`File ${filePath} has been added.`);
 
-    const fileName = path.basename(filePath);
+        fs.readFile(filePath, "utf8", (err, content) => {
+            if (err) {
+                console.error("Error reading file content:", err);
+                // Handle the error as needed
+                return;
+            } else {
+                console.log(`File content:\n${content}`);
+            }
 
-    filesData.forEach((file) => {
-        if (file.name === fileName) {
-            file.isDeleted = true;
+            fileChanges = [
+                ...fileChanges,
+                {
+                    content: content,
+                    id: idCounter++,
+                    type: "PENDING",
+                    path: filePath,
+                    timestamp: new Date().toLocaleTimeString(),
+                    app: "file-upload-app",
+                },
+            ];
+
+            setTimeout(() => {
+                if (!fileConsumed) {
+                    moveFile(filePath, destinationFolder);
+                }
+            }, 10000); // 10 seconds delay before moving the file
+        });
+    })
+
+    .on("unlink", (filePath) => {
+        // Check if the file was consumed before considering it as deleted
+        if (!fileConsumed) {
+            console.log(`File ${filePath} has been removed.`);
+            // Update local variable with timestamp and third-party app
+            fileChanges = [
+                ...fileChanges,
+                { id: idCounter++, type: "DELETED", path: filePath, timestamp: new Date().toISOString(), app: "file-upload-app" },
+            ];
         }
     });
 
-    sendUpdatedFilesData();
-});
+function moveFile(sourcePath, destinationFolder) {
+    const fileName = path.basename(sourcePath);
+    const destinationPath = path.join(destinationFolder, fileName);
 
-// Serve file content
-app.get("/files/:fileName/content", (req, res) => {
-    const fileName = req.params.fileName;
-    const filePath = path.join(folderPath, fileName);
+    console.log(`Attempting to move file from ${sourcePath} to ${destinationPath}`);
 
-    try {
-        const fileContent = fs.readFileSync(filePath, "utf-8");
-        res.json({ content: fileContent });
-    } catch (error) {
-        console.error("Error reading file content:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+    fs.rename(sourcePath, destinationPath, (err) => {
+        if (err) {
+            console.error("Error moving file:", err);
+            // Add more detailed error logging
+            fileChanges = [
+                ...fileChanges,
+                { id: idCounter++, type: "ERROR", path: sourcePath, timestamp: new Date().toLocaleTimeString(), app: "file-upload-app", error: err.message },
+            ];
+            return;
+        }
+
+        console.log(`File ${sourcePath} has been moved to ${destinationPath}.`);
+        fileChanges = [
+            ...fileChanges,
+            { id: idCounter++, type: "CONSUMED", path: sourcePath, timestamp: new Date().toLocaleTimeString(), app: "file-upload-app" },
+        ];
+        fileConsumed = true;
+    });
+}
+
+// Schedule the file movement every day from 8 am to 1:59:59 pm
+setInterval(() => {
+    // Reset the consumed flag at the beginning of the interval
+    fileConsumed = false;
+
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 is Sunday, 1 is Monday, etc.
+
+    if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        // Not a weekend
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
+        const currentSecond = now.getSeconds();
+
+        if (currentHour >= 8 && currentHour < 20) {
+            // Move files to destination folder during 8 am to 1:59:59 pm
+            fs.readdir(sourceFolder, (err, files) => {
+                if (err) {
+                    console.error("Error reading source folder:", err);
+                    return;
+                }
+
+                files.forEach((file) => {
+                    const filePath = path.join(sourceFolder, file);
+                    moveFile(filePath, destinationFolder);
+                });
+            });
+        }
     }
+}, 1000);
+
+app.get("/fileChanges", (req, res) => {
+    res.json({ fileChanges });
 });
 
-app.get("/files", (req, res) => {
-    res.json(filesData.map(file => ({ ...file, isGenerated: true })));
+app.get("/fileContent", (req, res) => {
+    const filePath = req.query.path;
+
+    fs.readFile(filePath, "utf8", (err, content) => {
+        if (err) {
+            console.error("Error reading file content:", err);
+            res.status(500).json({ error: "Error reading file content" });
+        } else {
+            res.status(200).json({ content });
+        }
+    });
 });
 
-io.on("connection", (socket) => {
-    console.log("A client connected");
-
-    // Emit the initial data when a client connects
-    socket.emit("updateFiles", filesData.map(file => ({ ...file, isGenerated: true })));
-});
-
-server.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, () => {
+    console.log(`Server is running at http://localhost:${port}`);
 });
