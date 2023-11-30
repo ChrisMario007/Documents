@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        input, button {
+            margin: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Task Frontend</h2>
+
+    <label for="inputList">Enter a list of integers (comma-separated):</label>
+    <input type="text" id="inputList" placeholder="e.g., 2, 4, 6, 8">
+
+    <button onclick="squareElements()">Square Elements</button>
+    <p id="output1"></p>
+
+    <button onclick="filterAndSum()">Filter and Sum</button>
+    <p id="output2"></p>
+
+    <button onclick="convertToStringWithComma()">Convert to String with Comma</button>
+    <p id="output3"></p>
+
+    <script>
+        function squareElements() {
+            const inputList = document.getElementById('inputList').value;
+            const inputArray = inputList.split(',').map(x => parseInt(x.trim(), 10));
+
+            const outputArray = inputArray.map(x => x ** 2);
+            document.getElementById('output1').innerText = `Output: [${outputArray}]`;
+        }
+
+        function filterAndSum() {
+            const inputList = document.getElementById('inputList').value;
+            const inputArray = inputList.split(',').map(x => parseInt(x.trim(), 10));
+
+            const filteredArray = inputArray.filter(x => x <= 10);
+            const sum = filteredArray.reduce((acc, val) => acc + val, 0);
+            document.getElementById('output2').innerText = `Output: ${sum}`;
+        }
+
+        function convertToStringWithComma() {
+            const inputSum = document.getElementById('inputList').value;
+            const outputStr = inputSum.toString().split('').join(',');
+            document.getElementById('output3').innerText = `Output: '${outputStr}'`;
+        }
+    </script>
+</body>
+</html>

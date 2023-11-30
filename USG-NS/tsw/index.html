@@ -1,0 +1,77 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Library System</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Library System</h1>
+
+        <div class="new-button-container">
+            <button class="new-book-button" onclick="toggleFormVisibility('addBookForm')">+ New Book</button>
+            <button class="new-dvd-button" onclick="toggleFormVisibility('addDvdForm')">+ New DVD</button>
+        </div>
+
+        <div id="bookList" class="book-list">
+            <!-- Book list will be displayed here -->
+        </div>
+        <div id="dvdList" class="dvd-list">
+            <!-- DVD list will be displayed here -->
+        </div>
+
+        <div id="addBookForm" class="form-container">
+            <h2>Add a Book</h2>
+            <label for="bookTitle">Title:</label>
+            <input type="text" id="bookTitle" placeholder="Enter book title" required>
+
+            <label for="author">Author:</label>
+            <input type="text" id="author" placeholder="Enter name of author" required>
+
+            <label for="numPages">Number of Pages:</label>
+            <input type="number" id="numPages" placeholder="Enter number of pages" required>
+
+            <label for="bookId">Book ID:</label>
+            <input type="text" id="bookId" placeholder="Enter book ID" required>
+
+            <button onclick="library.addBook()">Add Book</button>
+            <button onclick="library.clearForm('addBookForm')" class="cancel-button">Cancel</button>
+        </div>
+
+        <div id="addDvdForm" class="form-container">
+            <h2>Add a DVD</h2>
+            <label for="dvdTitle">Title:</label>
+            <input type="text" id="dvdTitle" placeholder="Enter DVD title" required>
+
+            <label for="director">Director:</label>
+            <input type="text" id="director" placeholder="Enter name of director" required>
+
+            <label for="duration">Duration:</label>
+            <input type="text" id="duration" placeholder="Enter duration" required>
+
+            <label for="dvdId">DVD ID:</label>
+            <input type="text" id="dvdId" placeholder="Enter DVD ID" required>
+
+            <button onclick="library.addDVD()">Add DVD</button>
+            <button onclick="library.clearForm('addDvdForm')" class="cancel-button">Cancel</button>
+        </div>
+
+        <div id="checkoutForm" class="form-container">
+            <h2>Checkout a Book/DVD</h2>
+            <label for="checkoutId">Book/DVD ID:</label>
+            <input type="text" id="checkoutId" placeholder="Enter ID" required>
+
+            <button onclick="library.checkoutItem()">Checkout</button>
+        </div>
+
+        <div id="bookTable" class="table-container">
+            <!-- Book and DVD table will be displayed here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

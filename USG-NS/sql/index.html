@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>SQL Query Generator</title>
+</head>
+<body>
+    <div class="container">
+        <div class="input-section">
+            <h2>Table Details</h2>
+            <label for="tableName">Table Name:</label>
+            <input type="text" id="tableName" placeholder="Enter table name">
+            <button onclick="createTable()">Create Table</button>
+            
+            <!-- Column Form (Hidden by Default) -->
+            <form id="columnForm" style="display:none;">
+                <label for="columnDetails">Column Details:</label>
+                <div id="columnDetails">
+                    <!-- Dynamic Input Fields will be added here -->
+                    <div class="action-buttons">
+                        <button type="button" onclick="addPrimaryKey()">PK</button>
+                        <button type="button" onclick="addForeignKey()">FK</button>
+                        <button type="button" onclick="addUnique()">UNIQUE</button>
+                        <button type="button" onclick="addNotNull()">NOT NULL</button>
+                        <button type="button" onclick="addColumn()">Add Column</button>
+                    </div>
+                </div>
+                <button type="button" onclick="generateQuery()">Generate Query</button>
+            </form>
+        </div>
+        <div class="output-section">
+            <div class="database-details">
+                <h3>Database Details</h3>
+                <!-- Add this div to display table names -->
+                <div class="table-names"></div>
+            </div>
+            <div class="generated-query-section">
+                <h3>Generated SQL Query:</h3>
+                <pre id="generatedQuery"></pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

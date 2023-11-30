@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Form</title>
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<form id="dynamicForm">
+  <div>
+    <label for="input1">Label 1:</label>
+    <input type="text" id="input1" required>
+  </div>
+  <div class="hidden" id="secondDiv">
+    <label for="input2">Label 2:</label>
+    <input type="text" id="input2" required>
+  </div>
+  <div class="hidden" id="thirdDiv">
+    <label for="input3">Label 3:</label>
+    <input type="text" id="input3" required>
+  </div>
+  <div class="hidden" id="fourthDiv">
+    <label for="input4">Label 4:</label>
+    <input type="text" id="input4" required>
+  </div>
+  <div class="hidden" id="fifthDiv">
+    <label for="input5">Label 5:</label>
+    <input type="text" id="input5" required>
+  </div>
+  <div class="hidden" id="sixthDiv">
+    <label for="input6">Label 6:</label>
+    <input type="text" id="input6" required>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+<script>
+  const form = document.getElementById('dynamicForm');
+  const secondDiv = document.getElementById('secondDiv');
+  const thirdDiv = document.getElementById('thirdDiv');
+  const fourthDiv = document.getElementById('fourthDiv');
+  const fifthDiv = document.getElementById('fifthDiv');
+  const sixthDiv = document.getElementById('sixthDiv');
+
+  const input1 = document.getElementById('input1');
+  const input2 = document.getElementById('input2');
+  const input3 = document.getElementById('input3');
+  const input4 = document.getElementById('input4');
+  const input5 = document.getElementById('input5');
+  const input6 = document.getElementById('input6');
+
+  form.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+
+      if (input1.value && secondDiv.classList.contains('hidden')) {
+        secondDiv.classList.remove('hidden');
+        input2.focus();
+      } else if (input2.value && thirdDiv.classList.contains('hidden')) {
+        thirdDiv.classList.remove('hidden');
+        input3.focus();
+      } else if (input3.value && fourthDiv.classList.contains('hidden')) {
+        fourthDiv.classList.remove('hidden');
+        input4.focus();
+      } else if (input4.value && fifthDiv.classList.contains('hidden')) {
+        fifthDiv.classList.remove('hidden');
+        input5.focus();
+      } else if (input5.value && sixthDiv.classList.contains('hidden')) {
+        sixthDiv.classList.remove('hidden');
+        input6.focus();
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

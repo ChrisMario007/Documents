@@ -1,0 +1,205 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+}
+
+.navbar {
+    background-color: #6cbcd4;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar h2 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: 2px;
+}
+
+.main-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 80px;
+    box-sizing: border-box;
+    margin: 0 20px;
+}
+
+.form-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto; /* Center the form horizontally */
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-container input[type="text"],
+.form-container select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.form-container button[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.success-message {
+    color: #4caf50;
+    font-weight: bold;
+    margin-top: 20px;
+    display: none;
+}
+
+.side-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    margin-left: 15px;
+    min-height: 40vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+.API-details {
+    padding-top: 15px;
+    padding-left: 15px;
+    min-height: 30vh;
+    background-color: #dce5e4; 
+    transition: min-height 0.3s ease; 
+    border-radius: 5px;
+    box-shadow: inset 0 0 10px 2px rgba(0, 0, 0, 0.3);
+}
+
+.API-details div {
+    margin-bottom: 10px; 
+    text-align: left; 
+}
+.API-details div span {
+    font-weight: bold;
+    color: #333;
+}
+.API-details div pre {
+    margin: 0;
+    font-weight: normal;
+    color: #333;
+    white-space: pre-wrap; 
+}
+
+.side-container .test-here-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.side-container .test-here-button:hover {
+    background-color: #0056b3;
+}
+
+.side-container .test-postman-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.side-container .test-postman-button:hover {
+    background-color: #218838;
+}
+.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-container input[name="requestBody"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    height: 100px; /* Set height to 100px for the Request Body input */
+}
+
+.form-container textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    height: 100px; 
+    resize: vertical; 
+}
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-container {
+        width: 90%;
+        max-width: none;
+    }
+
+    .side-container {
+        margin-left: 0;
+        width: 90%;
+        margin-top: 30px;
+    }
+
+    .API-details {
+        min-height: 20vh;
+    }
+}

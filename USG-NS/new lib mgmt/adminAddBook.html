@@ -1,0 +1,55 @@
+<!-- adminAddBook.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Add Book - Library Management System</title>
+    <link rel="stylesheet" href="stylesADD.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Admin Add Book - Library Management System</h1>
+    </header>
+
+    <main>
+        <form id="add-book-form">
+            <label for="bookId" class="form-label">
+                Book ID:
+                <input type="text" id="bookId" required>
+            </label>
+            <br>
+
+            <label for="bookTitle" class="form-label">
+                Title:
+                <input type="text" id="bookTitle" required>
+            </label>
+            <br>
+
+            <label for="author" class="form-label">
+                Author:
+                <input type="text" id="author" required>
+            </label>
+            <br>
+
+            <label for="pageCount" class="form-label">
+                Number of Pages:
+                <input type="number" id="pageCount" required>
+            </label>
+            <br>
+
+            <button type="submit" class="addbook">Add Book</button>
+            <button type="button" class="cancel">Cancel</button>
+            <a href="admin.html" class="go-to-admin-page">Go to Admin Page</a>
+        </form>
+
+        <p id="feedback"></p>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

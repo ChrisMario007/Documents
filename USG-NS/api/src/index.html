@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Drug Management System</h1>
+
+        <h2>Drugs List</h2>
+        <ul id="drugsList"></ul>
+
+        <h2>Add/Update a Drug</h2>
+        <form id="addDrugForm">
+            <!-- New input field for drug ID -->
+            <label for="drugId">ID (optional):</label>
+            <input type="number" id="drugId" placeholder="Leave empty for new drug">
+
+            <label for="drugName">Drug Name:</label>
+            <input type="text" id="drugName" required>
+
+            <label for="drugQuantity">Quantity:</label>
+            <input type="number" id="drugQuantity" required>
+
+            <button type="submit">Add/Update Drug</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
