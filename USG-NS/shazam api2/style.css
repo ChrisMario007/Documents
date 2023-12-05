@@ -1,0 +1,89 @@
+body {
+    background: #f0f2f5;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+h1 {
+    font-family: "Arial, sans-serif";
+    font-weight: bold;
+}
+
+.search-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#searchInput {
+    border-radius: 5px 0 0 5px;
+    height: 50px;
+}
+
+#searchBtn {
+    border-radius: 0 5px 5px 0;
+}
+
+#loading,
+#errorMessage {
+    margin-top: 10px;
+}
+
+.music-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.music-card {
+    margin: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 400px;
+    height: 320px;
+}
+
+/* Add this to style.css */
+
+/* Add this to style.css */
+
+.song-img {
+    border-radius: 10px;
+    width: 220px;
+    height: 200px;
+}
+
+.artist-text {
+    font-style: italic;
+    color: #555;
+}
+
+.form-control {
+    width: 35%;
+}
+
+body.dark-mode {
+    background: #1e1e1e;
+    color: #fff;
+}
+
+.dark-mode .music-card {
+    background-color: #2b2b2b;
+    color: #fff;
+}
+
+.dark-mode #searchInput,
+.dark-mode #searchBtn {
+    background-color: #333;
+    border: 1px solid #555;
+    color: #fff;
+}
+
+.dark-mode .form-check-input:checked {
+    background-color: #333;
+}
